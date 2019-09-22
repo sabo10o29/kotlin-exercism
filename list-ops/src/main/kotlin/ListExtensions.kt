@@ -46,13 +46,13 @@ fun <T> List<T>.customMap(operator: (T) -> T): List<T>{
     return result
 }
 
-tailrec fun <T,V> List<T>.customFoldRight(initialValue: V, operator: (T, V) -> V): V{
+fun <T,V> List<T>.customFoldRight(initialValue: V, operator: (T, V) -> V): V{
     if(this.isEmpty()) return initialValue
     if(this.size == 1) return operator(this[0], initialValue)
     return operator(this[0], this.subList(1,this.size).customFoldRight(initialValue, operator))
 }
 
-tailrec fun <T,V> List<T>.customFoldLeft(initialValue: V, operator: (V, T) -> V): V{
+fun <T,V> List<T>.customFoldLeft(initialValue: V, operator: (V, T) -> V): V{
     if(this.isEmpty()) return initialValue
     if(this.size == 1) return operator(initialValue,this[0])
     return operator(this.subList(0,this.size -1).customFoldLeft(initialValue, operator),this.customReverse()[0])
